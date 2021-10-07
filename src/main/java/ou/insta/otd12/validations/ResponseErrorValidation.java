@@ -16,8 +16,8 @@ public class ResponseErrorValidation {
 
     public ResponseEntity<Object> mapValidationService(BindingResult result) {
         if (result.hasErrors()) {
-
             Map<String, String> errorMap = new HashMap<>();
+
             if (!CollectionUtils.isEmpty(result.getAllErrors())) {
                 for (ObjectError error : result.getAllErrors()) {
                     errorMap.put(error.getCode(), error.getDefaultMessage());

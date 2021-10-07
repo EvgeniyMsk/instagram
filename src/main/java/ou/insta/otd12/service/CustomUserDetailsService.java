@@ -27,6 +27,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) {
         User user = userRepository.findUserByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Username not found with username: " + username));
+
         return build(user);
     }
 
@@ -34,11 +35,14 @@ public class CustomUserDetailsService implements UserDetailsService {
         return userRepository.findUserById(id).orElse(null);
     }
 
+
     public static User build(User user) {
         List<GrantedAuthority> authorities = user.getRoles().stream()
                 .map(role -> new SimpleGrantedAuthority(role.name()))
                 .collect(Collectors.toList());
-        return new User(user.getId(),
+
+        return new User(
+                user.getId(),
                 user.getUsername(),
                 user.getEmail(),
                 user.getPassword(),

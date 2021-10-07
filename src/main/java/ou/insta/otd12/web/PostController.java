@@ -36,8 +36,10 @@ public class PostController {
                                              Principal principal) {
         ResponseEntity<Object> errors = responseErrorValidation.mapValidationService(bindingResult);
         if (!ObjectUtils.isEmpty(errors)) return errors;
+
         Post post = postService.createPost(postDTO, principal);
-        PostDTO createdPost = postFacade.posToPostDTO(post);
+        PostDTO createdPost = postFacade.postToPostDTO(post);
+
         return new ResponseEntity<>(createdPost, HttpStatus.OK);
     }
 
@@ -45,8 +47,9 @@ public class PostController {
     public ResponseEntity<List<PostDTO>> getAllPosts() {
         List<PostDTO> postDTOList = postService.getAllPosts()
                 .stream()
-                .map(postFacade::posToPostDTO)
+                .map(postFacade::postToPostDTO)
                 .collect(Collectors.toList());
+
         return new ResponseEntity<>(postDTOList, HttpStatus.OK);
     }
 
@@ -54,8 +57,9 @@ public class PostController {
     public ResponseEntity<List<PostDTO>> getAllPostsForUser(Principal principal) {
         List<PostDTO> postDTOList = postService.getAllPostForUser(principal)
                 .stream()
-                .map(postFacade::posToPostDTO)
+                .map(postFacade::postToPostDTO)
                 .collect(Collectors.toList());
+
         return new ResponseEntity<>(postDTOList, HttpStatus.OK);
     }
 
@@ -63,7 +67,8 @@ public class PostController {
     public ResponseEntity<PostDTO> likePost(@PathVariable("postId") String postId,
                                             @PathVariable("username") String username) {
         Post post = postService.likePost(Long.parseLong(postId), username);
-        PostDTO postDTO = postFacade.posToPostDTO(post);
+        PostDTO postDTO = postFacade.postToPostDTO(post);
+
         return new ResponseEntity<>(postDTO, HttpStatus.OK);
     }
 
@@ -72,5 +77,5 @@ public class PostController {
         postService.deletePost(Long.parseLong(postId), principal);
         return new ResponseEntity<>(new MessageResponse("Post was deleted"), HttpStatus.OK);
     }
-
 }
+

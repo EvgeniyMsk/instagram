@@ -6,7 +6,7 @@ import ou.insta.otd12.entity.User;
 
 @Component
 public class UserFacade {
-    public UserDTO userToUserDto(User user) {
+    public UserDTO userToUserDTO(User user) {
         UserDTO userDTO = new UserDTO();
         userDTO.setId(user.getId());
         userDTO.setFirstname(user.getName());
@@ -15,4 +15,5 @@ public class UserFacade {
         userDTO.setBio(user.getBio());
         return userDTO;
     }
+
 }

@@ -6,9 +6,10 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 
-@Data
 @Entity
+@Data
 public class ImageModel {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,5 +22,6 @@ public class ImageModel {
     private Long userId;
     @JsonIgnore
     private Long postId;
-
+    public ImageModel() {
+    }
 }

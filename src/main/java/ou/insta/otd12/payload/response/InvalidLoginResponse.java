@@ -4,11 +4,14 @@ import lombok.Getter;
 
 @Getter
 public class InvalidLoginResponse {
-    private String usernate;
+
+    private String username;
     private String password;
 
     public InvalidLoginResponse() {
-        this.usernate = "Invalid username";
-        this.password = "Invalid password";
+        this.username = "Invalid Username";
+        this.password = "Invalid Password";
     }
+
+
 }

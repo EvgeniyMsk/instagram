@@ -22,7 +22,7 @@ import java.util.Optional;
 public class CommentService {
     public static final Logger LOG = LoggerFactory.getLogger(CommentService.class);
 
-    public final CommentRepository commentRepository;
+    private final CommentRepository commentRepository;
     private final PostRepository postRepository;
     private final UserRepository userRepository;
 
@@ -36,7 +36,8 @@ public class CommentService {
     public Comment saveComment(Long postId, CommentDTO commentDTO, Principal principal) {
         User user = getUserByPrincipal(principal);
         Post post = postRepository.findById(postId)
-                .orElseThrow(() -> new PostNotFoundException("Post can't be found for username: " + user.getEmail()));
+                .orElseThrow(() -> new PostNotFoundException("Post cannot be found for username: " + user.getEmail()));
+
         Comment comment = new Comment();
         comment.setPost(post);
         comment.setUserId(user.getId());
@@ -49,8 +50,9 @@ public class CommentService {
 
     public List<Comment> getAllCommentsForPost(Long postId) {
         Post post = postRepository.findById(postId)
-                .orElseThrow(() -> new PostNotFoundException("Post can't be found"));
+                .orElseThrow(() -> new PostNotFoundException("Post cannot be found"));
         List<Comment> comments = commentRepository.findAllByPost(post);
+
         return comments;
     }
 
@@ -58,6 +60,7 @@ public class CommentService {
         Optional<Comment> comment = commentRepository.findById(commentId);
         comment.ifPresent(commentRepository::delete);
     }
+
 
     private User getUserByPrincipal(Principal principal) {
         String username = principal.getName();

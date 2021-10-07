@@ -13,4 +13,5 @@ public class CommentFacade {
         commentDTO.setMessage(comment.getMessage());
         return commentDTO;
     }
+
 }

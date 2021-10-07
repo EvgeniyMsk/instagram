@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 @RequestMapping("api/comment")
 @CrossOrigin
 public class CommentController {
+
     @Autowired
     private CommentService commentService;
     @Autowired
@@ -39,21 +40,24 @@ public class CommentController {
 
         Comment comment = commentService.saveComment(Long.parseLong(postId), commentDTO, principal);
         CommentDTO createdComment = commentFacade.commentToCommentDTO(comment);
+
         return new ResponseEntity<>(createdComment, HttpStatus.OK);
     }
 
-    @GetMapping("/{postId}/add")
+    @GetMapping("/{postId}/all")
     public ResponseEntity<List<CommentDTO>> getAllCommentsToPost(@PathVariable("postId") String postId) {
         List<CommentDTO> commentDTOList = commentService.getAllCommentsForPost(Long.parseLong(postId))
                 .stream()
                 .map(commentFacade::commentToCommentDTO)
                 .collect(Collectors.toList());
+
         return new ResponseEntity<>(commentDTOList, HttpStatus.OK);
     }
 
-    @PostMapping("/{commentId/delete}")
+    @PostMapping("/{commentId}/delete")
     public ResponseEntity<MessageResponse> deleteComment(@PathVariable("commentId") String commentId) {
         commentService.deleteComment(Long.parseLong(commentId));
         return new ResponseEntity<>(new MessageResponse("Post was deleted"), HttpStatus.OK);
     }
+
 }

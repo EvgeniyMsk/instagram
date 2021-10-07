@@ -6,10 +6,10 @@ import ou.insta.otd12.entity.Post;
 
 @Component
 public class PostFacade {
-    public PostDTO posToPostDTO(Post post) {
+    public PostDTO postToPostDTO(Post post) {
         PostDTO postDTO = new PostDTO();
-        postDTO.setId(post.getId());
         postDTO.setUsername(post.getUser().getUsername());
+        postDTO.setId(post.getId());
         postDTO.setCaption(post.getCaption());
         postDTO.setLikes(post.getLikes());
         postDTO.setUsersLiked(post.getLikedUsers());
@@ -17,4 +17,5 @@ public class PostFacade {
         postDTO.setTitle(post.getTitle());
         return postDTO;
     }
+
 }
