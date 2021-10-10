@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {Post} from "../models/Post";
-import {Observable} from "rxjs";
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Post} from '../models/Post';
+import {Observable} from 'rxjs';
 
 const POST_API = 'http://localhost:8081/api/post/';
 
@@ -10,25 +10,26 @@ const POST_API = 'http://localhost:8081/api/post/';
 })
 export class PostService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
-  public createPost(post: Post): Observable<any> {
+  createPost(post: Post): Observable<any> {
     return this.http.post(POST_API + 'create', post);
   }
 
-  public getAllPosts(): Observable<any> {
+  getAllPosts(): Observable<any> {
     return this.http.get(POST_API + 'all');
   }
 
-  public getPostForCurrentUser(): Observable<any> {
+  getPostForCurrentUser(): Observable<any> {
     return this.http.get(POST_API + 'user/posts');
   }
 
-  public delete(id: number): Observable<any> {
+  deletePost(id: number): Observable<any> {
     return this.http.post(POST_API + id + '/delete', null);
   }
 
-  public likePost(id: number, username: string): Observable<any> {
+  likePost(id: number, username: string): Observable<any> {
     return this.http.post(POST_API + id + '/' + username + '/like', null);
   }
 }

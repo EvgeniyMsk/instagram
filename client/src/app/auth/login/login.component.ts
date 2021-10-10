@@ -23,7 +23,6 @@ export class LoginComponent implements OnInit {
     if (this.tokenStorage.getUser()) {
       this.router.navigate(['main']);
     }
-    this.loginForm = this.createLoginForm();
   }
 
   ngOnInit(): void {

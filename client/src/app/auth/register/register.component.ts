@@ -18,7 +18,6 @@ export class RegisterComponent implements OnInit {
     private notificationService: NotificationService,
     private fb: FormBuilder
   ) {
-    this.registerForm = this.createRegisterForm();
   }
 
   ngOnInit(): void {
